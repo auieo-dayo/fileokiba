@@ -1,1 +1,3 @@
-if(window.confirm('しっかり証拠隠蔽しましょう')){window.location.replace("https://google.com");}
+function syouko(url) {
+    if(window.confirm('しっかり証拠隠蔽しましょう')){window.location.replace(url);}
+}
