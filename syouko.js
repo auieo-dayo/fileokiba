@@ -1,0 +1,1 @@
+if(window.confirm('しっかり証拠隠蔽しましょう')){window.location.replace("https://google.com");}
