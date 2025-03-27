@@ -1,1 +1,1 @@
-const screen = '[nowtime.full(),nowtime.yyyyMMdd(),nowtime.hhmmss()]'
+const screenhairetu = '[nowtime.full(),nowtime.yyyyMMdd(),nowtime.hhmmss()]'
