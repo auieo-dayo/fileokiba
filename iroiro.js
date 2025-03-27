@@ -58,7 +58,7 @@ const nowtime = {
     if (!hour) {
         return;
     }
-    if (hour > 19 || hour === "0") {
+    if (hour > 19 || hour == "0" || hour == 0) {
         return("こんばんわ")
     } else {
         if ( hour > 0 &&  hour < 3) {
