@@ -1,1 +1,1 @@
-const a = '[nowtime.full(),nowtime.yyyyMMdd(),nowtime.hhmmss()]'
+const screen = '[nowtime.full(),nowtime.yyyyMMdd(),nowtime.hhmmss()]'
