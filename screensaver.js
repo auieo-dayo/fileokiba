@@ -1,0 +1,1 @@
+const a = '[nowtime.full(),nowtime.yyyyMMdd(),nowtime.hhmmss()]'
