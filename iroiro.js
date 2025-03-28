@@ -98,8 +98,31 @@ const CookieManager = {
     }
     return null;
   },
-
   delete: (name) => {
     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
   }
 }
+//通知
+const NotificationManager = {
+  // 📌 通知を送信する関数
+  send: function (title = "通知", body = "これは通知です", icon = "", url = "") {
+      if (Notification.permission !== "granted") {
+          Notification.requestPermission().then(permission => {
+              if (permission === "granted") {
+                  this._showNotification(title, body, icon, url);
+              }
+          });
+      } else {
+          this._showNotification(title, body, icon, url);
+      }
+  },
+
+  // 📌 通知の表示
+  _showNotification: function (title, body, icon, url) {
+      let notification = new Notification(title, { body, icon });
+
+      if (url) {
+          notification.onclick = () => window.open(url, "_blank");
+      }
+  }
+};
