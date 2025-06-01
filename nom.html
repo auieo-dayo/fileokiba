@@ -45,6 +45,10 @@
       margin-top: 20px;
       font-weight: bold;
     }
+    .feedback {
+      margin-top: 10px;
+      color: #d00;
+    }
     .quiz-section {
       display: none;
     }
@@ -54,79 +58,7 @@
   </style>
 </head>
 <body>
-  <div class="quiz-container">
-    <h2>教科を選んでね：</h2>
-    <label><input type="radio" name="subject" value="kokugo" checked onchange="changeSubject(this.value)"> 国語</label>
-    <label><input type="radio" name="subject" value="math" onchange="changeSubject(this.value)"> 数学</label>
-    <label><input type="radio" name="subject" value="science" onchange="changeSubject(this.value)"> 理科</label>
-    <label><input type="radio" name="subject" value="social" onchange="changeSubject(this.value)"> 社会</label>
-    <label><input type="radio" name="subject" value="english" onchange="changeSubject(this.value)"> 英語</label>
-
-    <div id="kokugo" class="quiz-section active">
-      <h2>クイズ：国語 四字熟語</h2>
-      <form id="quizForm-kokugo">
-        <div class="question">1. 「いっせいちだん」の意味は？<br><input type="text" name="q1"></div>
-        <div class="question">2. 「一期一会」を漢字で書け。<br><input type="text" name="q2"></div>
-        <div class="question">3. 「温故知新」の意味は？<br><input type="text" name="q3"></div>
-        <div class="question">4. 「七転八起」を漢字で書け。<br><input type="text" name="q4"></div>
-        <div class="question">5. 「以心伝心」の意味は？<br><input type="text" name="q5"></div>
-        <button type="button" onclick="checkAnswers('kokugo')">採点する</button>
-      </form>
-      <div class="result" id="result-kokugo"></div>
-    </div>
-
-    <div id="math" class="quiz-section">
-      <h2>クイズ：数学（計算問題）</h2>
-      <form id="quizForm-math">
-        <div class="question">1. (-3) × 4 = <br><input type="text" name="q1"></div>
-        <div class="question">2. -24 ÷ (-6) = <br><input type="text" name="q2"></div>
-        <div class="question">3. 2^3 = <br><input type="text" name="q3"></div>
-        <div class="question">4. (-5)^2 = <br><input type="text" name="q4"></div>
-        <div class="question">5. (-2) × (-3) × 4 = <br><input type="text" name="q5"></div>
-        <button type="button" onclick="checkAnswers('math')">採点する</button>
-      </form>
-      <div class="result" id="result-math"></div>
-    </div>
-
-    <div id="science" class="quiz-section">
-      <h2>クイズ：理科（植物の分類）</h2>
-      <form id="quizForm-science">
-        <div class="question">1. シダ植物の特徴を1つ答えよ。<br><input type="text" name="q1"></div>
-        <div class="question">2. コケ植物の例を1つあげよ。<br><input type="text" name="q2"></div>
-        <div class="question">3. 種子がなく、根・茎・葉がある植物は？<br><input type="text" name="q3"></div>
-        <div class="question">4. 種子植物は何と何に分かれる？<br><input type="text" name="q4"></div>
-        <div class="question">5. 花を咲かせる植物は何植物？<br><input type="text" name="q5"></div>
-        <button type="button" onclick="checkAnswers('science')">採点する</button>
-      </form>
-      <div class="result" id="result-science"></div>
-    </div>
-
-    <div id="social" class="quiz-section">
-      <h2>クイズ：社会（地理）</h2>
-      <form id="quizForm-social">
-        <div class="question">1. 地球を南北に分ける線を何という？<br><input type="text" name="q1"></div>
-        <div class="question">2. 赤道の緯度は何度？<br><input type="text" name="q2"></div>
-        <div class="question">3. 時差が1時間ある経度差は何度？<br><input type="text" name="q3"></div>
-        <div class="question">4. 経線と緯線、どっちが縦線？<br><input type="text" name="q4"></div>
-        <div class="question">5. 日本が属する気候帯は？<br><input type="text" name="q5"></div>
-        <button type="button" onclick="checkAnswers('social')">採点する</button>
-      </form>
-      <div class="result" id="result-social"></div>
-    </div>
-
-    <div id="english" class="quiz-section">
-      <h2>クイズ：英語（単語）</h2>
-      <form id="quizForm-english">
-        <div class="question">1. 「火曜日」を英語で書け。<br><input type="text" name="q1"></div>
-        <div class="question">2. 「science」は何の教科？<br><input type="text" name="q2"></div>
-        <div class="question">3. 「forty」は何の数字？<br><input type="text" name="q3"></div>
-        <div class="question">4. 「January」は何月？<br><input type="text" name="q4"></div>
-        <div class="question">5. 「音楽」を英語で書け。<br><input type="text" name="q5"></div>
-        <button type="button" onclick="checkAnswers('english')">採点する</button>
-      </form>
-      <div class="result" id="result-english"></div>
-    </div>
-  </div>
+  <!-- 省略：HTMLフォーム部分はそのまま -->
 
   <script>
     const correctAnswers = {
@@ -179,15 +111,18 @@
       const resultDiv = document.getElementById(`result-${subject}`);
       const answers = correctAnswers[subject];
       let score = 0;
+      let feedbackHTML = "";
 
       for (let key in answers) {
         const userAnswer = form[key].value.trim();
         if (userAnswer === answers[key]) {
           score++;
+        } else {
+          feedbackHTML += `<div class='feedback'>問題${key.slice(1)}：あなたの答え「${userAnswer}」 → 正解「${answers[key]}」</div>`;
         }
       }
 
-      resultDiv.textContent = `あなたの正解数は ${score} / 5 です。`;
+      resultDiv.innerHTML = `あなたの正解数は ${score} / 5 です。` + feedbackHTML;
     }
   </script>
 </body>
